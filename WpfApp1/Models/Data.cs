@@ -13,10 +13,10 @@ namespace WpfApp1.Models
     public class Data : INotifyPropertyChanged
     {
         private string? _name;
-        private int _distance;
+        private double _distance;
         private int _angel;
-        private float _width;
-        private float _height;
+        private double _width;
+        private double _height;
         private string? _isDefect;
         
         public string? Name
@@ -28,7 +28,7 @@ namespace WpfApp1.Models
                 OnPropertyChanged("Name");
             }
         }
-        public int Distance
+        public double Distance
         {
             get { return _distance; }
             set
@@ -46,7 +46,7 @@ namespace WpfApp1.Models
                 OnPropertyChanged("Angel");
             }
         }
-        public float Width
+        public double Width
         {
             get {return _width; }
             set
@@ -55,7 +55,7 @@ namespace WpfApp1.Models
                 OnPropertyChanged("Width");
             }
         }
-        public float Height
+        public double Height
         {
             get { return _height; }
             set

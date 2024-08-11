@@ -14,7 +14,7 @@ namespace WpfApp1
     {
         private ObservableCollection<Data>? _datas;
 
-        private string path = "C:\\Users\\arabc\\Downloads\\Telegram Desktop\\Тест C#\\objects.csv";
+        private string path = "C:\\Users\\User\\source\\repos\\WpfApp1\\WpfApp1\\bin\\Debug\\net8.0-windows\\Objects.xlsx";
         public ObservableCollection<Data> Datas
         {
             get

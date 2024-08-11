@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.Intrinsics.X86;
@@ -19,42 +20,50 @@ namespace WpfApp1
         
         public void ReadXLS(string path)
         {
+            System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
             using (var stream = File.Open(path, FileMode.Open, FileAccess.Read))
             {
-                // Auto-detect format, supports:
-                //  - Binary Excel files (2.0-2003 format; *.xls)
-                //  - OpenXml Excel files (2007 format; *.xlsx, *.xlsb)
+                
                 using (var reader = ExcelReaderFactory.CreateReader(stream))
                 {
-                    // Choose one of either 1 or 2:
-
-                    // 1. Use the reader methods
-                    do
+                    Debug.WriteLine(reader.FieldCount);
+                    var configuration = new ExcelDataSetConfiguration
                     {
-                        while (reader.Read())
+                        ConfigureDataTable = _ => new ExcelDataTableConfiguration
                         {
-                            datas.Add(new Data
-                            
-                        {
-                             Name = reader.GetString(0),
-                             Distance  = reader.GetInt32(1),
-                             Angel  = reader.GetInt32(2),
-                             Width = reader.GetFloat(3),
-                             Height =  reader.GetFloat(4),
-                             IsDefect = reader.GetString(5),
-
-                        });
-                            
-                          
-                              
+                            UseHeaderRow = false        
                         }
-                    } while (reader.NextResult());
+                    };
+                     reader.AsDataSet(configuration);
+                  Debug.WriteLine(reader.FieldCount);
 
-                    // 2. Use the AsDataSet extension method
-                    //var result = reader.AsDataSet();
+                       
+                        do
+                        {
+                            while (reader.Read())
+                            {
+                                datas.Add(new Data
 
-                    // The result of each spreadsheet is in result.Tables
-                }
+                                {
+                                    Name = reader.GetString(1),
+                                    //Distance = reader.GetDouble(1),
+                                    //Angel = reader.GetInt32(2),
+                                    //Width = reader.GetDouble(3),
+                                    //Height = reader.GetDouble(4),
+                                    //IsDefect = reader.GetString(5),
+
+                                });
+
+
+
+                            }
+                        } while (reader.NextResult());
+
+                        // 2. Use the AsDataSet extension method
+
+
+                        //The result of each spreadsheet is in result.Tables
+                    }
             }
         }
     }
