@@ -6,9 +6,18 @@
         xmlns:local="clr-namespace:WpfApp1"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        <DataGrid x:Name="phonesGrid" AutoGenerateColumns="True" ItemsSource="{Binding Datas}">
-            
+    <Grid ShowGridLines="True">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <DataGrid Grid.Column="0" Grid.Row="1" x:Name="phonesGrid" AutoGenerateColumns="True" ItemsSource="{Binding Table}">
         </DataGrid>
+        <Button Grid.Column="0" Grid.Row="0" Background="AliceBlue" Width="30" Height="30" HorizontalAlignment="Left" Content="+" Command="{Binding DialogOpen}" ></Button>
     </Grid>
 </Window>

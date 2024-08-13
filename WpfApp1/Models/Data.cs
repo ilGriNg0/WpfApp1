@@ -14,7 +14,7 @@ namespace WpfApp1.Models
     {
         private string? _name;
         private double _distance;
-        private int _angel;
+        private double _angel;
         private double _width;
         private double _height;
         private string? _isDefect;
@@ -37,7 +37,7 @@ namespace WpfApp1.Models
                 OnPropertyChanged("Distance");
             }
         }
-        public int Angel
+        public double Angel
         {
             get { return _angel; }
             set
