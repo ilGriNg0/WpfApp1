@@ -1,4 +1,6 @@
-﻿using System.Text;
+﻿using System.Data;
+using System.Diagnostics;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -20,6 +22,21 @@ namespace WpfApp1
         {
             InitializeComponent();
             DataContext = MainWindowViewModel.Instance ;
+        }
+
+        private void phonesGrid_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
+        {
+          
+          var item = ExcelGrid.Items.CurrentItem;
+          if(item is DataRowView view)
+            {
+                DataRow row = view.Row;
+                object[] rowValues = row.ItemArray;
+                string mess = string.Join(", ", rowValues);
+                Debug.WriteLine(mess);
+            }
+            
+            
         }
     }
 }

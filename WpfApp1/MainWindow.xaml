@@ -16,8 +16,11 @@
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
-        <DataGrid Grid.Column="0" Grid.Row="1" x:Name="phonesGrid" AutoGenerateColumns="True" ItemsSource="{Binding Table}">
+        <DataGrid Grid.Column="0" Grid.Row="1" x:Name="ExcelGrid" AutoGenerateColumns="True" ItemsSource="{Binding Table}" MouseRightButtonDown="phonesGrid_MouseRightButtonDown">
         </DataGrid>
         <Button Grid.Column="0" Grid.Row="0" Background="AliceBlue" Width="30" Height="30" HorizontalAlignment="Left" Content="+" Command="{Binding DialogOpen}" ></Button>
+        <StackPanel Grid.Row="1" Grid.Column="1">
+            
+        </StackPanel>
     </Grid>
 </Window>
