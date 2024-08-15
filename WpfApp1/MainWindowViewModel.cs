@@ -78,7 +78,7 @@ namespace WpfApp1
                         if (openFileDialog.ShowDialog() == true)
                         {
                             string path = openFileDialog.FileName;
-                            var reader = ExcelFileReaderFactory.GetLoadData(path);
+                            var reader = ExcelFileReaderFactory.GetLoadData(path);  
                             Table = reader.ReadExcelFiles(path);
                         }
                     }

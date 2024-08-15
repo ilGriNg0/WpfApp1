@@ -33,10 +33,16 @@ namespace WpfApp1
 
             using (var stream = File.Open(path, FileMode.Open, FileAccess.Read))
             {
-
+                var configuration = new ExcelDataSetConfiguration
+                {
+                    ConfigureDataTable = _ => new ExcelDataTableConfiguration
+                    {
+                        UseHeaderRow = true
+                    }
+                };
                 using (var reader = ExcelReaderFactory.CreateCsvReader(stream))
                 {
-                    var res = reader.AsDataSet();
+                    var res = reader.AsDataSet(configuration);
                     return res.Tables.Count > 0 ? res.Tables[0] : null;
                 }
             }

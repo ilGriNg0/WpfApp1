@@ -35,22 +35,78 @@ namespace WpfApp1
         public DataTable ReadExcelFiles(string path)
         {
             System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
-         
-            using (var stream = File.Open(path, FileMode.Open, FileAccess.Read))
-            {
-
+            DataTable dataTable = new DataTable();
+            using (var stream = new FileStream(path, FileMode.Open, FileAccess.Read))
+            { 
+                
                 using (var reader = ExcelReaderFactory.CreateReader(stream))
                 {
-                    var res = reader.AsDataSet();
-                    return res.Tables.Count > 0 ? res.Tables[0] : null;
+                    var configuration = new ExcelDataSetConfiguration
+                    {
+                        ConfigureDataTable = _ => new ExcelDataTableConfiguration
+                        {
+                            UseHeaderRow = true
+                        }
+                    };
 
-                  
+                    //var res = reader.AsDataSet(configuration);
+                    //var table = res.Tables[0];
+                    bool firstrow = true;
+                    int maxCnt = 50;
+                    while (reader.Read() && maxCnt > 0)
+                    {
+                        if (firstrow)
+                        {
+                            // Чтение заголовков
+                            for (int i = 0; i < reader.FieldCount; i++)
+                            {
+                                dataTable.Columns.Add(reader.GetString(i));
+                            }
+                            firstrow = false;
+                        }
+                        else
+                        {
+                            // Чтение строк данных
+                            DataRow row = dataTable.NewRow();
+                            for (int i = 0; i < reader.FieldCount; i++)
+                            {
+                                row[i] = reader.GetValue(i);
+                            }
+                            dataTable.Rows.Add(row);
+                            
+                        }
+                        maxCnt--;
+                       
+                    }
 
+
+                    //table.Clear();
+                    //res.Tables.Clear();
+                    //res.Tables.Add(dataTable);
+                    return dataTable;
                 }
             }
          
 
         }
+        //private byte[] ReadBite(Stream s, int size)
+        //{
+        //    var mas = new byte[size];
+        //    int n = size;
+        //    while (n > 0)
+        //    {
+        //        var buf = s.Read(mas);
+        //        if(n == 0)
+        //        {
+        //            throw new FileFormatException("EOF");
+        //        }
+        //        n--;
+
+        //    }
+        //    string str = Encoding.UTF8.GetString(mas);  
+        //    Debug.WriteLine(str);
+        //    return mas;
+        //}
       
         
        

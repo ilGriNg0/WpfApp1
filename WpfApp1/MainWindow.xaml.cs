@@ -24,19 +24,23 @@ namespace WpfApp1
             DataContext = MainWindowViewModel.Instance ;
         }
 
-        private void phonesGrid_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
+        private void ExcelGrid_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
         {
           
-          var item = ExcelGrid.Items.CurrentItem;
+         
+          var item = ExcelGrid.SelectedItem;
           if(item is DataRowView view)
             {
                 DataRow row = view.Row;
                 object[] rowValues = row.ItemArray;
                 string mess = string.Join(", ", rowValues);
+                item_control.Items.Add(mess);
                 Debug.WriteLine(mess);
             }
             
             
         }
+
+       
     }
 }

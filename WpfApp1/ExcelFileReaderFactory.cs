@@ -20,6 +20,8 @@ namespace WpfApp1
                 case ".xls":
                 case ".xlsx":
                     return new LoadDataExcel();
+                case ".xlsb":
+                    return new LoadDataExcelBinary();
                 default:
                     throw new NotSupportedException($"Extension : {extension} not correct");
             }
