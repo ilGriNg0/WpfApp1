@@ -36,20 +36,8 @@ namespace WpfApp1
 
                 using (var reader = ExcelReaderFactory.CreateCsvReader(stream))
                 {
-                    var configuration = new ExcelDataSetConfiguration
-                    {
-                        ConfigureDataTable = _ => new ExcelDataTableConfiguration
-                        {
-                            UseHeaderRow = true
-                        }
-                    };
-                    var res = reader.AsDataSet(configuration);
-                    //MainWindowViewModel.Instance.SetData = res;
-                    //MainWindowViewModel.Instance.Table = MainWindowViewModel.Instance.SetData.Tables[0];
+                    var res = reader.AsDataSet();
                     return res.Tables.Count > 0 ? res.Tables[0] : null;
-
-
-
                 }
             }
 

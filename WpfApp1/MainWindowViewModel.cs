@@ -95,7 +95,7 @@ namespace WpfApp1
         {
             get { if (_instance == null)
                 {
-                    _instance = new MainWindowViewModel(new LoadData());
+                    _instance = new MainWindowViewModel(new LoadDataExcel());
                 }
             return _instance;
             }

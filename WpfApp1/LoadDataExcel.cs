@@ -18,7 +18,7 @@ using WpfApp1.Models;
 
 namespace WpfApp1
 {
-    partial class LoadData : ILoadData
+    partial class LoadDataExcel : ILoadData
     {
         //public string path { get; set; }
         //public string path_extension { get; set; }  
@@ -41,16 +41,7 @@ namespace WpfApp1
 
                 using (var reader = ExcelReaderFactory.CreateReader(stream))
                 {
-                    var configuration = new ExcelDataSetConfiguration
-                    {
-                        ConfigureDataTable = _ => new ExcelDataTableConfiguration
-                        {
-                            UseHeaderRow = true
-                        }
-                    };
-                    var res = reader.AsDataSet(configuration);
-                    //MainWindowViewModel.Instance.SetData = res;
-                    //MainWindowViewModel.Instance.Table = MainWindowViewModel.Instance.SetData.Tables[0];
+                    var res = reader.AsDataSet();
                     return res.Tables.Count > 0 ? res.Tables[0] : null;
 
                   

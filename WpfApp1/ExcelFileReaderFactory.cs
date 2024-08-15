@@ -19,7 +19,7 @@ namespace WpfApp1
                     return new LoadDataCsv();
                 case ".xls":
                 case ".xlsx":
-                    return new LoadData();
+                    return new LoadDataExcel();
                 default:
                     throw new NotSupportedException($"Extension : {extension} not correct");
             }
