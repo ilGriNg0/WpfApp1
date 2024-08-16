@@ -8,6 +8,7 @@ using System.Data;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Runtime.Intrinsics.X86;
 using System.Text;
 using System.Threading.Tasks;
@@ -30,14 +31,15 @@ namespace WpfApp1
         //        path = openFileDialog.FileName; 
         //    }
         //   ReadExcelFiles(path);
-           
+
         //}
+        public static int RowsCountTable { set; get; }
         public DataTable ReadExcelFiles(string path)
         {
             System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
             DataTable dataTable = new DataTable();
             using (var stream = new FileStream(path, FileMode.Open, FileAccess.Read))
-            { 
+            {
                 
                 using (var reader = ExcelReaderFactory.CreateReader(stream))
                 {
@@ -48,7 +50,7 @@ namespace WpfApp1
                             UseHeaderRow = true
                         }
                     };
-
+                    RowsCountTable = reader.RowCount;
                     //var res = reader.AsDataSet(configuration);
                     //var table = res.Tables[0];
                     bool firstrow = true;
@@ -89,6 +91,44 @@ namespace WpfApp1
          
 
         }
+
+        public DataTable lazyTable(DataTable dataTable, string path, int current_row, int max_row)
+        {
+            var last_data = dataTable.Rows.Count;
+            using (var open_file = new FileStream(path, FileMode.Open, FileAccess.Read))
+            {
+                
+                using (var reader = ExcelReaderFactory.CreateReader(open_file))
+                {
+                    
+                    int cnt = 0;
+                    while (reader.Read() && cnt < max_row)
+                    {
+                        cnt++;
+                        
+                        if(current_row > cnt)
+                        {
+                            continue;
+                        }
+                        else
+                        {
+                            DataRow row = dataTable.NewRow();
+                            for (int i = 0; i < reader.FieldCount; i++)
+                            {
+                                row[i] = reader.GetValue(i);
+                            }
+                            dataTable.Rows.Add(row);
+                           
+                        }
+                      
+                    }
+                    return dataTable;
+                }
+            }
+
+        }
+
+     
         //private byte[] ReadBite(Stream s, int size)
         //{
         //    var mas = new byte[size];
@@ -107,9 +147,9 @@ namespace WpfApp1
         //    Debug.WriteLine(str);
         //    return mas;
         //}
-      
-        
-       
-       
+
+
+
+
     }
 }

@@ -14,5 +14,6 @@ namespace WpfApp1
     {
         public DataTable ReadExcelFiles(string path);
         //public void DialogOpen();
+        public DataTable lazyTable(DataTable dataTable, string path, int current_row, int max_row);
     }
 }

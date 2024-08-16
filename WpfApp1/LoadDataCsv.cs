@@ -12,6 +12,11 @@ namespace WpfApp1
 {
     public class LoadDataCsv : ILoadData
     {
+        public DataTable lazyTable(DataTable dataTable, string path, int current_row, int max_row)
+        {
+            throw new NotImplementedException();
+        }
+
         //public string path { get; set; }
         //public string path_extension { get; set; }
         //public void DialogOpen()

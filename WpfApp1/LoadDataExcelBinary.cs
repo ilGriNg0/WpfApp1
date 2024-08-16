@@ -12,6 +12,11 @@ namespace WpfApp1
 {
     public class LoadDataExcelBinary : ILoadData
     {
+        public DataTable lazyTable(DataTable dataTable, string path, int current_row, int max_row)
+        {
+            throw new NotImplementedException();
+        }
+
         public DataTable ReadExcelFiles(string path)
         {
             System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);

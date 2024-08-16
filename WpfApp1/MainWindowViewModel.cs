@@ -12,6 +12,7 @@ using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using System.Windows.Navigation;
 using System.Windows.Resources;
 using WpfApp1.Models;
 namespace WpfApp1
@@ -62,6 +63,7 @@ namespace WpfApp1
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
         }
+        string path {  get; set; }
         private RelayCommand _dialogopen;
         public RelayCommand DialogOpen
         {
@@ -77,7 +79,7 @@ namespace WpfApp1
                         };
                         if (openFileDialog.ShowDialog() == true)
                         {
-                            string path = openFileDialog.FileName;
+                            path = openFileDialog.FileName;
                             var reader = ExcelFileReaderFactory.GetLoadData(path);  
                             Table = reader.ReadExcelFiles(path);
                         }
@@ -89,8 +91,28 @@ namespace WpfApp1
                 }));
             }
         }
-       
 
+        private RelayCommand _lazyLoad;
+
+        public RelayCommand LazyLoad
+        {
+           get
+            {
+                return _lazyLoad ??= new RelayCommand(() =>
+                {
+                    try
+                    {
+                        var reader = ExcelFileReaderFactory.GetLoadData(path);
+                        Table = reader.lazyTable(Table, path, Table.Rows.Count, );
+                    }
+                    catch (Exception)
+                    {
+
+                        throw;
+                    }
+                });
+            }
+        }
         public static MainWindowViewModel Instance
         {
             get { if (_instance == null)
