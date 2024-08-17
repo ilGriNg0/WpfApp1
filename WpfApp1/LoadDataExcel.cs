@@ -22,19 +22,7 @@ namespace WpfApp1
 {
     partial class LoadDataExcel : ILoadData
     {
-        //public string path { get; set; }
-        //public string path_extension { get; set; }  
-        //public void DialogOpen()
-        //{
-        //    OpenFileDialog openFileDialog = new OpenFileDialog();
-        //    if (openFileDialog.ShowDialog() == true)
-        //    {
-        //        path = openFileDialog.FileName; 
-        //    }
-        //   ReadExcelFiles(path);
 
-        //}
-      
         public Task<DataTable> ReadExcelFiles(string path)
         {
             return Task.Run(() =>
