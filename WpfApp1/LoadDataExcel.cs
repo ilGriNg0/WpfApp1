@@ -13,6 +13,7 @@ using System.Runtime.Intrinsics.X86;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media.Media3D;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Xml.Schema;
 using WpfApp1.Models;
@@ -33,102 +34,118 @@ namespace WpfApp1
         //   ReadExcelFiles(path);
 
         //}
-        public static int RowsCountTable { set; get; }
-        public DataTable ReadExcelFiles(string path)
+      
+        public Task<DataTable> ReadExcelFiles(string path)
         {
-            System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
-            DataTable dataTable = new DataTable();
-            using (var stream = new FileStream(path, FileMode.Open, FileAccess.Read))
+            return Task.Run(() =>
             {
-                
-                using (var reader = ExcelReaderFactory.CreateReader(stream))
+                System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
+                DataTable dataTable = new DataTable();
+                using (var stream = new FileStream(path, FileMode.Open, FileAccess.Read))
                 {
-                    var configuration = new ExcelDataSetConfiguration
+
+                    using (var reader = ExcelReaderFactory.CreateReader(stream))
                     {
-                        ConfigureDataTable = _ => new ExcelDataTableConfiguration
+                        var configuration = new ExcelDataSetConfiguration
                         {
-                            UseHeaderRow = true
-                        }
-                    };
-                    RowsCountTable = reader.RowCount;
-                    //var res = reader.AsDataSet(configuration);
-                    //var table = res.Tables[0];
-                    bool firstrow = true;
-                    int maxCnt = 50;
-                    while (reader.Read() && maxCnt > 0)
-                    {
-                        if (firstrow)
-                        {
-                            // Чтение заголовков
-                            for (int i = 0; i < reader.FieldCount; i++)
+                            ConfigureDataTable = _ => new ExcelDataTableConfiguration
                             {
-                                dataTable.Columns.Add(reader.GetString(i));
+                                UseHeaderRow = true
                             }
-                            firstrow = false;
-                        }
-                        else
+                        };
+                        CountRows.GetRowsCount = reader.RowCount;
+                        //var res = reader.AsDataSet(configuration);
+                        //var table = res.Tables[0];
+                        bool firstrow = true;
+                        int maxCnt = 50;
+                        while (reader.Read() && maxCnt > 0)
                         {
-                            // Чтение строк данных
-                            DataRow row = dataTable.NewRow();
-                            for (int i = 0; i < reader.FieldCount; i++)
+                            if (firstrow)
                             {
-                                row[i] = reader.GetValue(i);
+                                // Чтение заголовков
+                                for (int i = 0; i < reader.FieldCount; i++)
+                                {
+                                    dataTable.Columns.Add(reader.GetString(i));
+                                }
+                                firstrow = false;
                             }
-                            dataTable.Rows.Add(row);
-                            
+                            else
+                            {
+                                // Чтение строк данных
+                                DataRow row = dataTable.NewRow();
+                                for (int i = 0; i < reader.FieldCount; i++)
+                                {
+                                    row[i] = reader.GetValue(i);
+                                }
+                                dataTable.Rows.Add(row);
+
+                            }
+                            maxCnt--;
+
                         }
-                        maxCnt--;
-                       
+
+
+                        //table.Clear();
+                        //res.Tables.Clear();
+                        //res.Tables.Add(dataTable);
+                        return dataTable;
                     }
-
-
-                    //table.Clear();
-                    //res.Tables.Clear();
-                    //res.Tables.Add(dataTable);
-                    return dataTable;
                 }
-            }
+
+            });
+            
          
 
         }
 
-        public DataTable lazyTable(DataTable dataTable, string path, int current_row, int max_row)
+        public Task<DataTable> lazyTable(DataTable dataTable, string path, int current_row, int max_row, int increase)
         {
-            var last_data = dataTable.Rows.Count;
-            using (var open_file = new FileStream(path, FileMode.Open, FileAccess.Read))
+            return Task.Run(() =>
             {
-                
-                using (var reader = ExcelReaderFactory.CreateReader(open_file))
+                using (var open_file = new FileStream(path, FileMode.Open, FileAccess.Read))
                 {
-                    
-                    int cnt = 0;
-                    while (reader.Read() && cnt < max_row)
+
+                    using (var reader = ExcelReaderFactory.CreateReader(open_file))
                     {
-                        cnt++;
-                        
-                        if(current_row > cnt)
+
+                        int cnt = 0;
+                        int rows_add = 0;
+                        while (reader.Read() && cnt < max_row && rows_add < increase)
                         {
-                            continue;
-                        }
-                        else
-                        {
-                            DataRow row = dataTable.NewRow();
-                            for (int i = 0; i < reader.FieldCount; i++)
+                            cnt++;
+
+                            if (current_row > cnt)
                             {
-                                row[i] = reader.GetValue(i);
+                                continue;
                             }
-                            dataTable.Rows.Add(row);
-                           
+                            else
+                            {
+                                DataRow row = dataTable.NewRow();
+                                for (int i = 0; i < reader.FieldCount; i++)
+                                {
+                                    row[i] = reader.GetValue(i);
+                                }
+                               
+                                App.Current.Dispatcher.Invoke(() =>
+                                {
+                                    dataTable.Rows.Add(row);
+                                });
+                                rows_add++;
+                            }
+
                         }
-                      
+                       
+                        return dataTable;
                     }
-                    return dataTable;
                 }
-            }
+
+            });
+            
+           
 
         }
 
-     
+      
         //private byte[] ReadBite(Stream s, int size)
         //{
         //    var mas = new byte[size];

@@ -12,8 +12,8 @@ namespace WpfApp1
 {
     public interface ILoadData
     {
-        public DataTable ReadExcelFiles(string path);
+        public Task<DataTable> ReadExcelFiles(string path);
         //public void DialogOpen();
-        public DataTable lazyTable(DataTable dataTable, string path, int current_row, int max_row);
+        public Task<DataTable> lazyTable(DataTable dataTable, string path, int current_row, int max_row, int increase);
     }
 }

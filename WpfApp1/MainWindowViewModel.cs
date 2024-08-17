@@ -69,7 +69,7 @@ namespace WpfApp1
         {
             get
             {
-                return _dialogopen ?? (_dialogopen = new RelayCommand(() =>
+                return _dialogopen ?? (_dialogopen = new RelayCommand(async () =>
                 {
                     try
                     {
@@ -81,7 +81,8 @@ namespace WpfApp1
                         {
                             path = openFileDialog.FileName;
                             var reader = ExcelFileReaderFactory.GetLoadData(path);  
-                            Table = reader.ReadExcelFiles(path);
+                            Table = await reader.ReadExcelFiles(path);
+
                         }
                     }
                     catch (Exception e)
@@ -98,12 +99,12 @@ namespace WpfApp1
         {
            get
             {
-                return _lazyLoad ??= new RelayCommand(() =>
+                return _lazyLoad ??= new RelayCommand(async () =>
                 {
                     try
                     {
                         var reader = ExcelFileReaderFactory.GetLoadData(path);
-                        Table = reader.lazyTable(Table, path, Table.Rows.Count, );
+                        Table = await reader.lazyTable(Table, path, Table.Rows.Count, CountRows.GetRowsCount, 50);
                     }
                     catch (Exception)
                     {

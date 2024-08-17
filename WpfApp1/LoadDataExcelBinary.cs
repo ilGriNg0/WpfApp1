@@ -12,29 +12,30 @@ namespace WpfApp1
 {
     public class LoadDataExcelBinary : ILoadData
     {
-        public DataTable lazyTable(DataTable dataTable, string path, int current_row, int max_row)
+        public Task<DataTable> lazyTable(DataTable dataTable, string path, int current_row, int max_row, int increase)
         {
             throw new NotImplementedException();
         }
 
-        public DataTable ReadExcelFiles(string path)
+        public Task<DataTable> ReadExcelFiles(string path)
         {
-            System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
-            using (var stream = File.Open(path, FileMode.Open, FileAccess.Read) )
-            {
-                using (var reader =  ExcelReaderFactory.CreateBinaryReader(stream))
-                {
-                    var configuration = new ExcelDataSetConfiguration
-                    {
-                        ConfigureDataTable = _ => new ExcelDataTableConfiguration
-                        {
-                            UseHeaderRow = true
-                        }
-                    };
-                    var excel = reader.AsDataSet(configuration);
-                    return excel.Tables.Count > 0 ? excel.Tables[0] : null;
-                }
-            }
+            //System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
+            //using (var stream = File.Open(path, FileMode.Open, FileAccess.Read) )
+            //{
+            //    using (var reader =  ExcelReaderFactory.CreateBinaryReader(stream))
+            //    {
+            //        var configuration = new ExcelDataSetConfiguration
+            //        {
+            //            ConfigureDataTable = _ => new ExcelDataTableConfiguration
+            //            {
+            //                UseHeaderRow = true
+            //            }
+            //        };
+            //        var excel = reader.AsDataSet(configuration);
+            //        return excel.Tables.Count > 0 ? excel.Tables[0] : null;
+            //    }
+            //}
+            throw new NotImplementedException();
         }
     }
 }
