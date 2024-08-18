@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿using System.Collections.ObjectModel;
+using System.Data;
 using System.Diagnostics;
 using System.Text;
 using System.Windows;
@@ -26,7 +27,7 @@ namespace WpfApp1
 
         private void ExcelGrid_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
         {
-          
+         ObservableCollection<TextBlock> textBlocks = new ObservableCollection<TextBlock>();
          
           var item = ExcelGrid.SelectedItem;
           if(item is DataRowView view)
@@ -35,6 +36,8 @@ namespace WpfApp1
                 object[] rowValues = row.ItemArray;
                 string mess = string.Join(", ", rowValues);
                 item_control.Items.Add(mess);
+                Txt.Text = mess;
+                textBlocks.Add(Txt);
                 Debug.WriteLine(mess);
             }
             

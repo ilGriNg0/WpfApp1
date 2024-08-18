@@ -48,10 +48,11 @@ namespace WpfApp1
             }
         }
         ILoadData loadData { get; set; }
-
-        public MainWindowViewModel(ILoadData loadData)
+        IWriteExcel writeExcel { get; set; }
+        public MainWindowViewModel(ILoadData loadData, IWriteExcel writeExcel)
         {
             this.loadData = loadData;
+            this.writeExcel = writeExcel;
         }
 
         private static MainWindowViewModel? _instance;
@@ -114,11 +115,31 @@ namespace WpfApp1
                 });
             }
         }
+
+        private RelayCommand _saveTable;
+
+        public RelayCommand SaveTable
+        {
+            get {
+                return _saveTable ??= new RelayCommand(async () =>
+            {
+                try
+                {
+                   await writeExcel.WriteDataToExcel(path,Table);
+                }
+                catch (Exception)
+                {
+
+                    throw;
+                }
+
+            }); }
+        }
         public static MainWindowViewModel Instance
         {
             get { if (_instance == null)
                 {
-                    _instance = new MainWindowViewModel(new LoadDataExcel());
+                    _instance = new MainWindowViewModel(new LoadDataExcel(), new WriteExcel());
                 }
             return _instance;
             }

@@ -1,5 +1,6 @@
 ﻿using ExcelDataReader;
 using Microsoft.Win32;
+using OfficeOpenXml;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -132,29 +133,5 @@ namespace WpfApp1
            
 
         }
-
-      
-        //private byte[] ReadBite(Stream s, int size)
-        //{
-        //    var mas = new byte[size];
-        //    int n = size;
-        //    while (n > 0)
-        //    {
-        //        var buf = s.Read(mas);
-        //        if(n == 0)
-        //        {
-        //            throw new FileFormatException("EOF");
-        //        }
-        //        n--;
-
-        //    }
-        //    string str = Encoding.UTF8.GetString(mas);  
-        //    Debug.WriteLine(str);
-        //    return mas;
-        //}
-
-
-
-
     }
 }

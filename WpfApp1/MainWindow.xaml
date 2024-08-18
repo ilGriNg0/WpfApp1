@@ -24,11 +24,12 @@
         <StackPanel Grid.Column="0" Grid.Row="0" Orientation="Horizontal">
             <Button Margin="10"  Background="AliceBlue" Width="30" Height="30" HorizontalAlignment="Left" Content="+" Command="{Binding DialogOpen}" ></Button>
             <Button Margin="10"  Background="AliceBlue" Width="30" Height="30" HorizontalAlignment="Left" Content="Load" Command="{Binding LazyLoad}" ></Button>
+            <Button Margin="10"  Background="AliceBlue" Width="30" Height="30" HorizontalAlignment="Left" Content="Save" Command="{Binding SaveTable}" ></Button>
         </StackPanel>
        
         <StackPanel Grid.Row="1" Grid.Column="2">
             <ItemsControl x:Name="item_control">
-                <TextBlock x:Name="Txt"></TextBlock> 
+                <TextBlock x:Name="Txt"  Text="{Binding textBlocks}"></TextBlock> 
             </ItemsControl>
         </StackPanel>
     </Grid>
