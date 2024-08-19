@@ -11,6 +11,7 @@ using System.Runtime.CompilerServices;
 using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 using System.Windows.Navigation;
 using System.Windows.Resources;
@@ -47,12 +48,28 @@ namespace WpfApp1
                 OnPropertyChanged("Table");
             }
         }
+
+        private bool _machine;
+        public bool Machine
+        {
+            get => _machine;
+
+            set
+            {
+                _machine = value;
+                OnPropertyChanged("Machine"); 
+            }
+        }
+
         ILoadData loadData { get; set; }
         IWriteExcel writeExcel { get; set; }
-        public MainWindowViewModel(ILoadData loadData, IWriteExcel writeExcel)
+        IMachineState state { get; set; }
+        public MainWindowViewModel(ILoadData loadData, IWriteExcel writeExcel, IMachineState state)
         {
             this.loadData = loadData;
             this.writeExcel = writeExcel;
+            this.state = state;
+            Machine = state.SelectState(0);
         }
 
         private static MainWindowViewModel? _instance;
@@ -80,6 +97,7 @@ namespace WpfApp1
                         };
                         if (openFileDialog.ShowDialog() == true)
                         {
+                            Machine = state.SelectState(1);
                             path = openFileDialog.FileName;
                             var reader = ExcelFileReaderFactory.GetLoadData(path);  
                             Table = await reader.ReadExcelFiles(path);
@@ -139,7 +157,7 @@ namespace WpfApp1
         {
             get { if (_instance == null)
                 {
-                    _instance = new MainWindowViewModel(new LoadDataExcel(), new WriteExcel());
+                    _instance = new MainWindowViewModel(new LoadDataExcel(), new WriteExcel(), new MachineState());
                 }
             return _instance;
             }
