@@ -28,9 +28,24 @@
         </StackPanel>
        
         <StackPanel Grid.Row="1" Grid.Column="2">
-            <ItemsControl x:Name="item_control">
-                <TextBlock x:Name="Txt"  Text="{Binding textBlocks}"></TextBlock> 
-            </ItemsControl>
+        
+                <ItemsControl x:Name="ItemsRow"  ItemsSource="{Binding Rows}">
+
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border Margin="10" x:Name="bord" Background="Gray" CornerRadius="20" Height="70" ClipToBounds="True">
+                            <StackPanel>
+                                <Button Width="20" Height="20" HorizontalAlignment="Right" Content="X"  />
+                                <TextBlock Height="25" Text="{Binding }" TextWrapping="Wrap" Margin="10">
+                                </TextBlock>
+                                <!--<TextBlock Height="25" Text="{Binding RowsData}" TextWrapping="Wrap" Margin="10"></TextBlock>-->  
+                            </StackPanel>
+                        </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+         
+            
         </StackPanel>
     </Grid>
 </Window>

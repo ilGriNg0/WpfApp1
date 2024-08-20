@@ -24,10 +24,11 @@ namespace WpfApp1
             InitializeComponent();
             DataContext = MainWindowViewModel.Instance ;
         }
+        public string Data {  get; set; }
+        public ObservableCollection<string> TextBlocks { get; set; }  = new ObservableCollection<string>();
 
         private void ExcelGrid_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
         {
-         ObservableCollection<TextBlock> textBlocks = new ObservableCollection<TextBlock>();
          
           var item = ExcelGrid.SelectedItem;
           if(item is DataRowView view)
@@ -35,15 +36,18 @@ namespace WpfApp1
                 DataRow row = view.Row;
                 object[] rowValues = row.ItemArray;
                 string mess = string.Join(", ", rowValues);
-                item_control.Items.Add(mess);
-                Txt.Text = mess;
-                textBlocks.Add(Txt);
-                Debug.WriteLine(mess);
-            }
-            
-            
-        }
+               
+                //ItemsRow.Items.Add(mess);
+                //TextBlocks.Add(mess);
+                Data = MainWindowViewModel.Instance.RowsData;
+                //MainWindowViewModel.Instance.RowsData = mess;
+                MainWindowViewModel.Instance.Rows ??= new();
+                MainWindowViewModel.Instance.Rows.Add(mess);
+                //;                txt.Text = mess;
 
-       
+
+                Debug.WriteLine(mess);
+            }   
+        }   
     }
 }

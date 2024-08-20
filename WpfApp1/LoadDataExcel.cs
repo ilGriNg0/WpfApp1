@@ -52,10 +52,15 @@ namespace WpfApp1
                             if (firstrow)
                             {
                                 // Чтение заголовков
+                                string[] mass = [];
+                                List<string> list = new List<string>(); 
                                 for (int i = 0; i < reader.FieldCount; i++)
                                 {
                                     dataTable.Columns.Add(reader.GetString(i));
+                                    list.Add(reader.GetString(i));   
                                 }
+                                string teste = string.Join(", ", list);
+                                MainWindowViewModel.Instance.RowsData = teste;
                                 firstrow = false;
                             }
                             else

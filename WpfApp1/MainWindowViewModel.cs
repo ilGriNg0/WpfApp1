@@ -61,6 +61,28 @@ namespace WpfApp1
             }
         }
 
+        private string _rowsData;
+        public string RowsData
+        {
+            get { return _rowsData; }
+
+            set
+            {
+                _rowsData = value;
+                OnPropertyChanged("RowsData");
+            }
+        }
+        private ObservableCollection<string> _rows;
+
+        public ObservableCollection<string> Rows
+        {
+            get { return _rows; }
+            set
+            {
+                _rows = value;
+                OnPropertyChanged("Rows");
+            }
+        }
         ILoadData loadData { get; set; }
         IWriteExcel writeExcel { get; set; }
         IMachineState state { get; set; }
