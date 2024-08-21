@@ -11,6 +11,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WpfApp1.Models;
 
 namespace WpfApp1
 {
@@ -24,8 +25,7 @@ namespace WpfApp1
             InitializeComponent();
             DataContext = MainWindowViewModel.Instance ;
         }
-        public string Data {  get; set; }
-        public ObservableCollection<string> TextBlocks { get; set; }  = new ObservableCollection<string>();
+        public string data_row {  get; set; }
 
         private void ExcelGrid_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
         {
@@ -36,16 +36,11 @@ namespace WpfApp1
                 DataRow row = view.Row;
                 object[] rowValues = row.ItemArray;
                 string mess = string.Join(", ", rowValues);
-               
-                //ItemsRow.Items.Add(mess);
-                //TextBlocks.Add(mess);
-                Data = MainWindowViewModel.Instance.RowsData;
-                //MainWindowViewModel.Instance.RowsData = mess;
-                MainWindowViewModel.Instance.Rows ??= new();
-                MainWindowViewModel.Instance.Rows.Add(mess);
-                //;                txt.Text = mess;
-
-
+                data_row = MainWindowViewModel.Instance.RowsData;
+                Data data = new();
+                data.HeaderRow = data_row;
+                data.SelectRow = mess;
+                MainWindowViewModel.Instance.SetObservable(data);
                 Debug.WriteLine(mess);
             }   
         }   

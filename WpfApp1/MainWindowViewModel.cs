@@ -72,9 +72,9 @@ namespace WpfApp1
                 OnPropertyChanged("RowsData");
             }
         }
-        private ObservableCollection<string> _rows;
+        private ObservableCollection<Data> _rows;
 
-        public ObservableCollection<string> Rows
+        public ObservableCollection<Data> Rows
         {
             get { return _rows; }
             set
@@ -174,6 +174,37 @@ namespace WpfApp1
                 }
 
             }); }
+        }
+
+        private RelayCommand<object> _deleteRows;
+
+        public RelayCommand<object> DeleteRows
+        {
+            get {
+                return _deleteRows ??= new RelayCommand<object>((param) =>
+            {
+                try
+                {
+                    if(param is Data item)
+                    {
+                        int i = Rows.IndexOf(item);
+                        Rows.RemoveAt(i);
+                    }
+                   
+                }
+                catch (Exception)
+                {
+
+                    throw;
+                }
+            });
+            }
+           
+        }
+        internal void SetObservable(Data strings)
+        {
+            Rows ??= new();
+            Rows.Add(strings);
         }
         public static MainWindowViewModel Instance
         {

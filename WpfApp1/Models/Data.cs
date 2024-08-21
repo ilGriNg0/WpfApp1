@@ -12,64 +12,25 @@ namespace WpfApp1.Models
 {
     public class Data : INotifyPropertyChanged
     {
-        private string? _name;
-        private double _distance;
-        private double _angel;
-        private double _width;
-        private double _height;
-        private string? _isDefect;
+        private string? _headerRow;
+        private string? _selectRow;
         
-        public string? Name
+        public string? HeaderRow
         {
-            get{ return _name; }
+            get{ return _headerRow; }
             set 
             {
-                _name = value;
-                OnPropertyChanged("Name");
+                _headerRow = value;
+                OnPropertyChanged("HeaderRow");
             }
         }
-        public double Distance
+      
+        public string? SelectRow
         {
-            get { return _distance; }
-            set
-            {
-                _distance = value;
-                OnPropertyChanged("Distance");
-            }
-        }
-        public double Angel
-        {
-            get { return _angel; }
-            set
-            {
-                _angel = value;
-                OnPropertyChanged("Angel");
-            }
-        }
-        public double Width
-        {
-            get {return _width; }
-            set
-            {
-                _width = value;
-                OnPropertyChanged("Width");
-            }
-        }
-        public double Height
-        {
-            get { return _height; }
-            set
-            {
-                _height = value;
-                OnPropertyChanged("Height");
-            }
-        }
-        public string? IsDefect
-        {
-            get { return _isDefect; }
+            get { return _selectRow; }
             set 
             {
-                _isDefect = value;
+                _selectRow = value;
                 OnPropertyChanged("IsDefect");
             }
         }
