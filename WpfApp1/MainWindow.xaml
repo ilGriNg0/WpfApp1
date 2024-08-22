@@ -22,9 +22,21 @@
         <DataGrid Grid.Column="0" Grid.Row="1" x:Name="ExcelGrid" AutoGenerateColumns="True" ItemsSource="{Binding Table}"  MouseRightButtonDown="ExcelGrid_MouseRightButtonDown">
         </DataGrid>
         <StackPanel Grid.Column="0" Grid.Row="0" Orientation="Horizontal">
-            <Button Margin="10"  Background="AliceBlue" Width="30" Height="30" HorizontalAlignment="Left" Content="+" Command="{Binding DialogOpen}" ></Button>
-            <Button Margin="10"  Background="AliceBlue" IsEnabled="{Binding Machine}" Width="30" Height="30" HorizontalAlignment="Left" Content="Load" Command="{Binding LazyLoad}" ></Button>
-            <Button Margin="10"  Background="AliceBlue" IsEnabled="{Binding Machine}" Width="30" Height="30" HorizontalAlignment="Left" Content="Save" Command="{Binding SaveTable}" ></Button>
+            <Button Margin="10" Background="{StaticResource buttonBrush}" Width="30" Height="30" HorizontalAlignment="Left" Content="+" Command="{Binding DialogOpen}" >
+                <Button.Resources>
+                    <Style TargetType="Border" BasedOn="{StaticResource Btn}"/>
+                </Button.Resources>
+            </Button>
+            <Button Margin="10"  Background="{StaticResource buttonBrush}" IsEnabled="{Binding Machine}" Width="30" Height="30" HorizontalAlignment="Left" Content="Load" Command="{Binding LazyLoad}" >
+                <Button.Resources>
+                    <Style TargetType="Border" BasedOn="{StaticResource Btn}"/>
+                </Button.Resources>
+            </Button>
+            <Button Margin="10"  Background="{StaticResource buttonBrush}" IsEnabled="{Binding Machine}" Width="30" Height="30" HorizontalAlignment="Left" Content="Save" Command="{Binding SaveTable}" >
+                <Button.Resources>
+                    <Style TargetType="Border" BasedOn="{StaticResource Btn}"/>
+                </Button.Resources>
+            </Button>
         </StackPanel>
        
         <StackPanel Grid.Row="1" Grid.Column="2">
