@@ -201,6 +201,31 @@ namespace WpfApp1
             }
            
         }
+
+        private RelayCommand _saveExcelFiles;
+        public RelayCommand SaveExcelFiles
+        {
+            get { return _saveExcelFiles ??= new RelayCommand(async() =>
+            {
+                try
+                {
+                    SaveFileDialog saveFileDialog = new()
+                    {
+                        Filter = $"Excel files| *{ExcelFileReaderFactory.Extension}"
+                    };
+                    if(saveFileDialog.ShowDialog() == true)
+                    {
+                        path =saveFileDialog.FileName;
+                        await writeExcel.WriteDataToExcel(path, Table);
+                    }
+                }
+                catch (Exception)
+                {
+
+                    throw;
+                }
+            }); }
+        }
         internal void SetObservable(Data strings)
         {
             Rows ??= new();

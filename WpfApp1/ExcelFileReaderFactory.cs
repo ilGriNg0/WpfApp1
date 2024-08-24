@@ -9,10 +9,11 @@ namespace WpfApp1
 {
     public class ExcelFileReaderFactory
     {
+        public static string? Extension {get; set;}
         public static ILoadData GetLoadData(string path)
         {
-            string extension = Path.GetExtension(path).ToLower();
-            switch (extension)
+            Extension = Path.GetExtension(path).ToLower();
+            switch (Extension)
             {
                 case ".csv":
 
@@ -23,7 +24,7 @@ namespace WpfApp1
                 case ".xlsb":
                     return new LoadDataExcelBinary();
                 default:
-                    throw new NotSupportedException($"Extension : {extension} not correct");
+                    throw new NotSupportedException($"Extension : {Extension} not correct");
             }
 
         }
