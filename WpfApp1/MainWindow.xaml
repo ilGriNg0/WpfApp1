@@ -45,27 +45,29 @@
                 </Button.Resources>
             </Button>  
         </StackPanel>
-        <StackPanel Grid.Row="1" Grid.Column="2">
+        <ScrollViewer Grid.Row="1" Grid.Column="2">
+            <StackPanel >
+                <ItemsControl ItemsSource="{Binding Rows}">
 
-            <ItemsControl ItemsSource="{Binding Rows}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border Margin="10" x:Name="bord" Background="Gray" CornerRadius="20" ClipToBounds="True" >
+                                <StackPanel>
+                                    <Button Width="20" Height="20" HorizontalAlignment="Right" Content="X" Command="{Binding DataContext.DeleteRows, RelativeSource={RelativeSource AncestorType=Window}}" CommandParameter="{Binding }">
+                                        <Button.Resources>
+                                            <Style TargetType="Border" BasedOn="{StaticResource Btn}"/>
+                                        </Button.Resources>
+                                    </Button>
+                                    <TextBlock Text="{Binding HeaderRow}" TextWrapping="Wrap" Margin="10"/>
+                                    <TextBlock Text="{Binding  SelectRow}" TextWrapping="Wrap" Margin="10"></TextBlock>
+                                </StackPanel>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
 
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <Border Margin="10" x:Name="bord" Background="Gray" CornerRadius="20" ClipToBounds="True" >
-                            <StackPanel>
-                                <Button Width="20" Height="20" HorizontalAlignment="Right" Content="X" Command="{Binding DataContext.DeleteRows, RelativeSource={RelativeSource AncestorType=Window}}" CommandParameter="{Binding }">
-                                    <Button.Resources>
-                                        <Style TargetType="Border" BasedOn="{StaticResource Btn}"/>
-                                    </Button.Resources>
-                                </Button>
-                                <TextBlock Text="{Binding HeaderRow}" TextWrapping="Wrap" Margin="10"/>
-                                <TextBlock Text="{Binding  SelectRow}" TextWrapping="Wrap" Margin="10"></TextBlock>
-                            </StackPanel>
-                        </Border>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
-
-        </StackPanel>
+            </StackPanel>
+        </ScrollViewer>
+       
     </Grid>
 </Window>
