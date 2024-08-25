@@ -6,12 +6,7 @@
             <GradientStop Color="Gray" Offset="0" />
         </GradientStopCollection>
     </LinearGradientBrush>
-
-
-            <Style x:Key="Btn" TargetType="Border">
-                <Setter Property="CornerRadius" Value="5"/>
-            </Style>
-
-        
-    
+    <Style x:Key="Btn" TargetType="Border">
+        <Setter Property="CornerRadius" Value="5"/>
+    </Style>
 </ResourceDictionary>

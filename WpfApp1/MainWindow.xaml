@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:WpfApp1"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid ShowGridLines="False">
+    <Grid ShowGridLines="False" Style="{DynamicResource GridStyles}">
       
         <Grid.RowDefinitions>
             <RowDefinition Height="50"></RowDefinition>
@@ -22,33 +22,31 @@
         <DataGrid Grid.Column="0" Grid.Row="1" x:Name="ExcelGrid" AutoGenerateColumns="True" ItemsSource="{Binding Table}"  MouseRightButtonDown="ExcelGrid_MouseRightButtonDown">
         </DataGrid>
         <StackPanel Grid.Column="0" Grid.Row="0" Orientation="Horizontal">
-            <Button Margin="10" Background="{StaticResource buttonBrush}" Width="30" Height="30" HorizontalAlignment="Left" Content="+" Command="{Binding DialogOpen}" >
+            <Button Margin="10" Style="{DynamicResource ButtonStyles}" Width="30" Height="30" HorizontalAlignment="Left" Content="+" Command="{Binding DialogOpen}" >
                 <Button.Resources>
                     <Style TargetType="Border" BasedOn="{StaticResource Btn}"/>
                 </Button.Resources>
             </Button>
-            <Button Margin="10"  Background="{StaticResource buttonBrush}" IsEnabled="{Binding Machine}" Width="30" Height="30" HorizontalAlignment="Left" Content="Load" Command="{Binding LazyLoad}" >
+            <Button Margin="10"  Style="{DynamicResource ButtonStyles}" IsEnabled="{Binding Machine}" Width="30" Height="30" HorizontalAlignment="Left" Content="Load" Command="{Binding LazyLoad}" >
                 <Button.Resources>
                     <Style TargetType="Border" BasedOn="{StaticResource Btn}"/>
                 </Button.Resources>
             </Button>
-            <Button Margin="10"  Background="{StaticResource buttonBrush}" IsEnabled="{Binding Machine}" Width="30" Height="30" HorizontalAlignment="Left" Content="Save" Command="{Binding SaveTable}" >
+            <Button Margin="10"  Style="{DynamicResource ButtonStyles}" IsEnabled="{Binding Machine}" Width="30" Height="30" HorizontalAlignment="Left" Content="Save" Command="{Binding SaveTable}" >
                 <Button.Resources>
                     <Style TargetType="Border" BasedOn="{StaticResource Btn}"/>
                 </Button.Resources>
             </Button>
-            <Button Margin="10"  Background="{StaticResource buttonBrush}" IsEnabled="{Binding Machine}" Height="30" HorizontalAlignment="Left" Content="Export" Command="{Binding SaveExcelFiles}" >
+            <Button Margin="10"   Style="{DynamicResource ButtonStyles}" IsEnabled="{Binding Machine}" Height="30" HorizontalAlignment="Left" Content="Export" Command="{Binding SaveExcelFiles}" >
                 <Button.Resources>
                     <Style TargetType="Border" BasedOn="{StaticResource Btn}"/>
                 </Button.Resources>
             </Button>
         </StackPanel>
         <StackPanel Grid.Column="2" Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Right">
-            <Button Margin="10" Background="{StaticResource buttonBrush}" Width="30" Height="30" >
-                <Button.Resources>
-                    <Style TargetType="Border" BasedOn="{StaticResource Btn}"></Style>
-                </Button.Resources>
-            </Button>  
+            <ComboBox x:Name="ThemesComboBox" SelectionChanged="ThemesComboBox_SelectionChanged">
+              
+            </ComboBox>
         </StackPanel>
         <ScrollViewer Grid.Row="1" Grid.Column="2">
             <StackPanel >
@@ -64,7 +62,7 @@
                                         </Button.Resources>
                                     </Button>
                                     <TextBlock Text="{Binding HeaderRow}" TextWrapping="Wrap" Margin="10"/>
-                                    <TextBlock Text="{Binding  SelectRow}" TextWrapping="Wrap" Margin="10"></TextBlock>
+                                    <TextBlock Text="{Binding SelectRow}" TextWrapping="Wrap" Margin="10"></TextBlock>
                                 </StackPanel>
                             </Border>
                         </DataTemplate>
