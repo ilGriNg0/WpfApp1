@@ -202,10 +202,10 @@ namespace WpfApp1
            
         }
 
-        private RelayCommand _saveExcelFiles;
-        public RelayCommand SaveExcelFiles
+        private RelayCommand _saveExportExcelFiles;
+        public RelayCommand SaveExportExcelFiles
         {
-            get { return _saveExcelFiles ??= new RelayCommand(async() =>
+            get { return _saveExportExcelFiles ??= new RelayCommand(async() =>
             {
                 try
                 {
