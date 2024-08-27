@@ -52,16 +52,37 @@ namespace WpfApp1
         private void ThemesComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             string style = ThemesComboBox.SelectedItem as string;
-            //определяем путь к файлу ресурсов
            var uri = new Uri(style + ".xaml", UriKind.Relative);
-            // загружаем словарь ресурсов
             ResourceDictionary resourceDict = Application.LoadComponent(uri) as ResourceDictionary;
-            // очищаем коллекцию ресурсов приложения
             Application.Current.Resources.Clear();
-            // добавляем загруженный словарь ресурсов
             Application.Current.Resources.MergedDictionaries.Add(resourceDict);
         }
 
-     
+       
+
+      
+
+        private void ExcelGrid_CurrentCellChanged(object sender, EventArgs e)
+        {
+
+           
+            var item = ExcelGrid.SelectedItem;
+           if(item is DataRowView view)
+            {
+                DataRow rw = view.Row;
+                object[] rows = rw.ItemArray;
+                string str = string.Join(',', rows);
+
+                foreach (var items in MainWindowViewModel.Instance.Rows)
+                {
+                    items.SelectRow = str;
+                    Debug.WriteLine($"{items.HeaderRow} {items.SelectRow}");
+                }
+
+            }
+
+
+
+         }
     }
 }

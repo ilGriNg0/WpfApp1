@@ -19,7 +19,7 @@
         </Grid.ColumnDefinitions>
         <GridSplitter Grid.Column="1" Grid.Row="1" Background="Gray" ShowsPreview="False" Width="10" HorizontalAlignment="Center" VerticalAlignment="Stretch">
         </GridSplitter>
-        <DataGrid Grid.Column="0" Grid.Row="1" x:Name="ExcelGrid" AutoGenerateColumns="True" ItemsSource="{Binding Table}"  MouseRightButtonDown="ExcelGrid_MouseRightButtonDown">
+        <DataGrid Grid.Column="0" Grid.Row="1" x:Name="ExcelGrid" AutoGenerateColumns="True" ItemsSource="{Binding Table}"  MouseRightButtonDown="ExcelGrid_MouseRightButtonDown" CurrentCellChanged="ExcelGrid_CurrentCellChanged">
         </DataGrid>
         <StackPanel Grid.Column="0" Grid.Row="0" Orientation="Horizontal">
             <Button Margin="10" Style="{DynamicResource ButtonStyles}" Width="30" Height="30" HorizontalAlignment="Left" Content="+" Command="{Binding DialogOpen}" >
@@ -54,7 +54,10 @@
 
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <Border Margin="10" x:Name="bord" Background="Gray" CornerRadius="20" ClipToBounds="True" >
+                            <Border Margin="10" x:Name="bord" Style="{DynamicResource BorderStyles}"  CornerRadius="20" ClipToBounds="True" >
+                                <Border.Resources>
+                                    <Style TargetType="Border" BasedOn="{StaticResource Btn}"></Style>
+                                </Border.Resources>
                                 <StackPanel>
                                     <Button Width="20" Height="20" HorizontalAlignment="Right" Content="X" Command="{Binding DataContext.DeleteRows, RelativeSource={RelativeSource AncestorType=Window}}" CommandParameter="{Binding }">
                                         <Button.Resources>
@@ -62,7 +65,7 @@
                                         </Button.Resources>
                                     </Button>
                                     <TextBlock Text="{Binding HeaderRow}" TextWrapping="Wrap" Margin="10"/>
-                                    <TextBlock Text="{Binding SelectRow}" TextWrapping="Wrap" Margin="10"></TextBlock>
+                                    <TextBlock Text="{Binding SelectRow, NotifyOnTargetUpdated=True}" TextWrapping="Wrap" Margin="10"></TextBlock>
                                 </StackPanel>
                             </Border>
                         </DataTemplate>

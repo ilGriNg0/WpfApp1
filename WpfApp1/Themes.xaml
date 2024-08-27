@@ -4,9 +4,12 @@
         <Setter Property="Background" Value="Green"></Setter>
     </Style>
     <Style x:Key="GridStyles" TargetType="Grid">
-        <Setter Property="Background" Value="Beige"></Setter>
+        <Setter Property="Background" Value="#ffffff"></Setter>
     </Style>
     <Style x:Key="TextBlockStyles" TargetType="TextBlock">
         <Setter Property="Background" Value="Black"></Setter>
+    </Style>
+    <Style x:Key="BorderStyles" TargetType="Border">
+        <Setter Property="Background" Value="#cafad8"></Setter>
     </Style>
 </ResourceDictionary>
