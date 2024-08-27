@@ -30,7 +30,7 @@ namespace WpfApp1
             ThemesComboBox.SelectedItem = "test";
         }
         public string data_row {  get; set; }
-
+        public Data data_Current { get; set; }
         private void ExcelGrid_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
         {
         
@@ -41,9 +41,11 @@ namespace WpfApp1
                 object[] rowValues = row.ItemArray;
                 string mess = string.Join(", ", rowValues);
                 data_row = MainWindowViewModel.Instance.RowsData;
+                //data_Current ??= new();
                 Data data = new();
                 data.HeaderRow = data_row;
                 data.SelectRow = mess;
+                //data_Current = data;    
                 MainWindowViewModel.Instance.SetObservable(data);
                 Debug.WriteLine(mess);
             }   
@@ -58,31 +60,54 @@ namespace WpfApp1
             Application.Current.Resources.MergedDictionaries.Add(resourceDict);
         }
 
-       
 
-      
+        private string _curStr = string.Empty;
+        private void ExcelGrid_BeginningEdit(object sender, DataGridBeginningEditEventArgs e)
+        {
+            //var str = e.Column.GetCellContent(e.Row) as TextBox;
+            //if (str != null)
+            //{
+            //    _curStr = str.Text;
+            //} 
+            var item = ExcelGrid.SelectedItem;
+            if (item is DataRowView view)
+            {
+                DataRow rw = view.Row;
+                object[] rows = rw.ItemArray;
+                string str = string.Join(", ", rows);
+                _curStr = str;
+                data_Current ??= new();
+                data_Current.HeaderRow = MainWindowViewModel.Instance.RowsData;
+                data_Current.SelectRow = str;
+            }
+        }
 
         private void ExcelGrid_CurrentCellChanged(object sender, EventArgs e)
         {
 
-           
+
             var item = ExcelGrid.SelectedItem;
-           if(item is DataRowView view)
+            if (item is DataRowView view)
             {
                 DataRow rw = view.Row;
                 object[] rows = rw.ItemArray;
-                string str = string.Join(',', rows);
-
-                foreach (var items in MainWindowViewModel.Instance.Rows)
+                string str = string.Join(", ", rows);
+                if (str != _curStr && MainWindowViewModel.Instance.Rows != null &&  !string.IsNullOrEmpty(_curStr))
                 {
-                    items.SelectRow = str;
-                    Debug.WriteLine($"{items.HeaderRow} {items.SelectRow}");
-                }
+                    var collect_ind = MainWindowViewModel.Instance.Rows.IndexOf(data_Current);
+                    _curStr = string.Empty;
+                    foreach (var items in MainWindowViewModel.Instance.Rows.Skip(collect_ind))
+                    {
+                        items.SelectRow = str;
 
+                        Debug.WriteLine($"{items.HeaderRow} {items.SelectRow}");
+                        break;
+                    }
+                }
             }
 
 
 
-         }
+        }
     }
 }

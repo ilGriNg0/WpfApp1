@@ -31,7 +31,7 @@ namespace WpfApp1.Models
             set 
             {
                 _selectRow = value;
-                OnPropertyChanged("IsDefect");
+                OnPropertyChanged("SelectRow");
             }
         }
 
@@ -41,5 +41,14 @@ namespace WpfApp1.Models
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
         }
+
+        public override bool Equals(object? obj)
+        {
+            if (obj == null || GetType() != obj.GetType()) { return false; }
+            var item = obj as Data;
+            return HeaderRow == item?.HeaderRow && SelectRow == item?.SelectRow;
+        }
+
+        public override int GetHashCode() => HashCode.Combine(HeaderRow, SelectRow);
     }
 }
