@@ -24,10 +24,10 @@ namespace WpfApp1
         {
             InitializeComponent();
             DataContext = MainWindowViewModel.Instance ;
-            List<string> styles = new List<string> { "Themes", "TangerineTheme" };
+            List<string> styles = new List<string> { "DinoThemes", "TangerineTheme" };
             ThemesComboBox.SelectionChanged += ThemesComboBox_SelectionChanged;
             ThemesComboBox.ItemsSource = styles;
-            ThemesComboBox.SelectedItem = "test";
+            ThemesComboBox.SelectedItem = "DinoThemes";
         }
         public string data_row {  get; set; }
         public Data data_Current { get; set; }
@@ -41,11 +41,9 @@ namespace WpfApp1
                 object[] rowValues = row.ItemArray;
                 string mess = string.Join(", ", rowValues);
                 data_row = MainWindowViewModel.Instance.RowsData;
-                //data_Current ??= new();
                 Data data = new();
                 data.HeaderRow = data_row;
-                data.SelectRow = mess;
-                //data_Current = data;    
+                data.SelectRow = mess;   
                 MainWindowViewModel.Instance.SetObservable(data);
                 Debug.WriteLine(mess);
             }   
@@ -64,11 +62,6 @@ namespace WpfApp1
         private string _curStr = string.Empty;
         private void ExcelGrid_BeginningEdit(object sender, DataGridBeginningEditEventArgs e)
         {
-            //var str = e.Column.GetCellContent(e.Row) as TextBox;
-            //if (str != null)
-            //{
-            //    _curStr = str.Text;
-            //} 
             var item = ExcelGrid.SelectedItem;
             if (item is DataRowView view)
             {
@@ -84,8 +77,6 @@ namespace WpfApp1
 
         private void ExcelGrid_CurrentCellChanged(object sender, EventArgs e)
         {
-
-
             var item = ExcelGrid.SelectedItem;
             if (item is DataRowView view)
             {
@@ -105,9 +96,6 @@ namespace WpfApp1
                     }
                 }
             }
-
-
-
         }
     }
 }

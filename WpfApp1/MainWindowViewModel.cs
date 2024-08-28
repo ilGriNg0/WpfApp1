@@ -142,16 +142,20 @@ namespace WpfApp1
             {
                 return _lazyLoad ??= new RelayCommand(async () =>
                 {
-                    try
+                    if (CountRows.GetRowsCount >= 50)
                     {
-                        var reader = ExcelFileReaderFactory.GetLoadData(path);
-                        Table = await reader.lazyTable(Table, path, Table.Rows.Count, CountRows.GetRowsCount, 50);
-                    }
-                    catch (Exception)
-                    {
+                        try
+                        {
+                            var reader = ExcelFileReaderFactory.GetLoadData(path);
+                            Table = await reader.lazyTable(Table, path, Table.Rows.Count, CountRows.GetRowsCount, 50);
+                        }
+                        catch (Exception)
+                        {
 
-                        throw;
+                            throw;
+                        }
                     }
+                   
                 });
             }
         }
