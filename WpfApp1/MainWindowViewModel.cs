@@ -15,6 +15,8 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Navigation;
 using System.Windows.Resources;
+using OxyPlot;
+using OxyPlot.Series;
 using WpfApp1.Models;
 namespace WpfApp1
 {
@@ -71,6 +73,14 @@ namespace WpfApp1
                 _rowsData = value;
                 OnPropertyChanged("RowsData");
             }
+        }
+
+        private PlotModel _plotModel;
+
+        public PlotModel PlotModel
+        {
+            get { return _plotModel; }
+            set { value = _plotModel; OnPropertyChanged("PlotModel"); }
         }
         private ObservableCollection<Data> _rows;
 
