@@ -24,13 +24,13 @@ namespace WpfApp1
         {
             InitializeComponent();
             DataContext = MainWindowViewModel.Instance ;
-            List<string> styles = new List<string> { "Themes", "TangerineTheme" };
+            List<string> styles = new List<string> { "DinoThemes", "TangerineTheme" };
             ThemesComboBox.SelectionChanged += ThemesComboBox_SelectionChanged;
             ThemesComboBox.ItemsSource = styles;
-            ThemesComboBox.SelectedItem = "test";
+            ThemesComboBox.SelectedItem = "DinoThemes";
         }
         public string data_row {  get; set; }
-
+        public Data data_Current { get; set; }
         private void ExcelGrid_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
         {
         
@@ -43,7 +43,7 @@ namespace WpfApp1
                 data_row = MainWindowViewModel.Instance.RowsData;
                 Data data = new();
                 data.HeaderRow = data_row;
-                data.SelectRow = mess;
+                data.SelectRow = mess;   
                 MainWindowViewModel.Instance.SetObservable(data);
                 Debug.WriteLine(mess);
             }   
@@ -52,16 +52,50 @@ namespace WpfApp1
         private void ThemesComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             string style = ThemesComboBox.SelectedItem as string;
-            //определяем путь к файлу ресурсов
            var uri = new Uri(style + ".xaml", UriKind.Relative);
-            // загружаем словарь ресурсов
             ResourceDictionary resourceDict = Application.LoadComponent(uri) as ResourceDictionary;
-            // очищаем коллекцию ресурсов приложения
             Application.Current.Resources.Clear();
-            // добавляем загруженный словарь ресурсов
             Application.Current.Resources.MergedDictionaries.Add(resourceDict);
         }
 
-     
+
+        private string _curStr = string.Empty;
+        private void ExcelGrid_BeginningEdit(object sender, DataGridBeginningEditEventArgs e)
+        {
+            var item = ExcelGrid.SelectedItem;
+            if (item is DataRowView view)
+            {
+                DataRow rw = view.Row;
+                object[] rows = rw.ItemArray;
+                string str = string.Join(", ", rows);
+                _curStr = str;
+                data_Current ??= new();
+                data_Current.HeaderRow = MainWindowViewModel.Instance.RowsData;
+                data_Current.SelectRow = str;
+            }
+        }
+
+        private void ExcelGrid_CurrentCellChanged(object sender, EventArgs e)
+        {
+            var item = ExcelGrid.SelectedItem;
+            if (item is DataRowView view)
+            {
+                DataRow rw = view.Row;
+                object[] rows = rw.ItemArray;
+                string str = string.Join(", ", rows);
+                if (str != _curStr && MainWindowViewModel.Instance.Rows != null &&  !string.IsNullOrEmpty(_curStr))
+                {
+                    var collect_ind = MainWindowViewModel.Instance.Rows.IndexOf(data_Current);
+                    _curStr = string.Empty;
+                    foreach (var items in MainWindowViewModel.Instance.Rows.Skip(collect_ind))
+                    {
+                        items.SelectRow = str;
+
+                        Debug.WriteLine($"{items.HeaderRow} {items.SelectRow}");
+                        break;
+                    }
+                }
+            }
+        }
     }
 }

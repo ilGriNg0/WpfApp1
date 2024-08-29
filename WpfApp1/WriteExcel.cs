@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -24,12 +25,22 @@ namespace WpfApp1
                     {
                         excelWorksheet.Cells[1, i + 1].Value = table.Columns[i].ColumnName;
                     }
-
+                  
                     for (int row = 0; row < table.Rows.Count; row++)
                     {
                         for (int col = 0; col < table.Columns.Count; col++)
                         {
-                            excelWorksheet.Cells[row + 2, col + 1].Value = table.Rows[row][col];
+                            var dt = table.Rows[row][col].ToString();
+                            if (double.TryParse(dt,  out double data))
+                            {
+                                excelWorksheet.Cells[row + 2, col + 1].Value =data;
+                                Debug.WriteLine(data);
+                            }
+                            else
+                            {
+                                excelWorksheet.Cells[row + 2, col + 1].Value = table.Rows[row][col];
+                            }
+                           
                         }
                     }
 

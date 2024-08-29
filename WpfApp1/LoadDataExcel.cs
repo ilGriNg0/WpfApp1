@@ -43,8 +43,6 @@ namespace WpfApp1
                             }
                         };
                         CountRows.GetRowsCount = reader.RowCount;
-                        //var res = reader.AsDataSet(configuration);
-                        //var table = res.Tables[0];
                         bool firstrow = true;
                         int maxCnt = 50;
                         while (reader.Read() && maxCnt > 0)
@@ -78,10 +76,6 @@ namespace WpfApp1
 
                         }
 
-
-                        //table.Clear();
-                        //res.Tables.Clear();
-                        //res.Tables.Add(dataTable);
                         return dataTable;
                     }
                 }
