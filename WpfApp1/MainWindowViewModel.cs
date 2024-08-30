@@ -75,12 +75,12 @@ namespace WpfApp1
             }
         }
 
-        private PlotModel _plotModel;
+        private PlotModel _plotModelGraphs;
 
-        public PlotModel PlotModel
+        public PlotModel PlotModelGraphs
         {
-            get { return _plotModel; }
-            set { value = _plotModel; OnPropertyChanged("PlotModel"); }
+            get { return _plotModelGraphs; }
+            set { _plotModelGraphs = value; OnPropertyChanged("PlotModel"); }
         }
         private ObservableCollection<Data> _rows;
 
@@ -107,7 +107,7 @@ namespace WpfApp1
         private static MainWindowViewModel? _instance;
 
         public event PropertyChangedEventHandler? PropertyChanged;
-        public event EventHandler? CanExecuteChanged;
+        //public event EventHandler? CanExecuteChanged;
 
         public void OnPropertyChanged([CallerMemberName] string prop = "")
         {

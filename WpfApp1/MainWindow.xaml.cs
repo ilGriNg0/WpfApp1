@@ -12,7 +12,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using WpfApp1.Models;
-
+using OxyPlot;
+using OxyPlot.Series;
 namespace WpfApp1
 {
     /// <summary>
@@ -96,6 +97,59 @@ namespace WpfApp1
                     }
                 }
             }
+        }
+
+        private void ExcelGrid_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+           var item = ExcelGrid.SelectedItem;
+            var point = e.GetPosition(ExcelGrid);
+            var hitTestResult = VisualTreeHelper.HitTest(ExcelGrid, point);
+            if (hitTestResult == null)
+            {
+                return;
+            }
+            DataGridCell cell = FindVisualChild<DataGridCell>(hitTestResult.VisualHit);
+            if(cell == null)
+            {
+                return;
+            }
+            DataGridColumn dataGridColumn = cell.Column;
+            int col_index = dataGridColumn.DisplayIndex;
+            DataGridRow dataGridRow = FindVisualChild<DataGridRow>(cell);
+            if (dataGridRow == null)
+            {
+                return;
+            }
+
+            var row = dataGridRow.Item;
+            var value = (row as DataRowView)?.Row[col_index].ToString();
+           if(double.TryParse(value, out double data))
+            {
+                GraphModel model = new();
+                DataPoint point1 = new DataPoint(data, data);
+                model.AddPoints(point1);
+            }
+           
+
+        }
+
+        private static T FindVisualChild<T>(DependencyObject dependencyObject) where T : DependencyObject
+        {
+            DependencyObject dependencyObject1 = VisualTreeHelper.GetParent(dependencyObject);  
+            if(dependencyObject1 == null)
+            {
+                return null;
+            }
+            T parent = dependencyObject as T;
+            if(parent != null)
+            {
+                return parent;
+            }
+            return FindVisualChild<T>(dependencyObject1);
+        }
+        private void ExcelGrid_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
+        {
+           
         }
     }
 }

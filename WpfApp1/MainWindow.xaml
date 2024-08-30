@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp1"
+        xmlns:oxy="http://oxyplot.org/wpf"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid ShowGridLines="False" Style="{DynamicResource GridStyles}">
@@ -11,22 +12,31 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="50"></RowDefinition>
             <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"></ColumnDefinition>
             <ColumnDefinition Width="Auto"></ColumnDefinition>
             <ColumnDefinition Width="*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <GridSplitter Grid.Column="1" Grid.Row="1" Background="Gray" ShowsPreview="False" Width="10" HorizontalAlignment="Center" VerticalAlignment="Stretch">
+        <GridSplitter Grid.Column="1" Grid.Row="1" Grid.RowSpan="2" Background="Gray" ShowsPreview="False" Width="10" HorizontalAlignment="Center" VerticalAlignment="Stretch">
         </GridSplitter>
-        <DataGrid Grid.Column="0" Grid.Row="1" x:Name="ExcelGrid"
+        <DataGrid Grid.Column="0" Grid.Row="1" Grid.RowSpan="2" x:Name="ExcelGrid"
                   AutoGenerateColumns="True"
                   ItemsSource="{Binding Table}"
+                  SelectedCellsChanged="ExcelGrid_SelectedCellsChanged"
                   MouseRightButtonDown="ExcelGrid_MouseRightButtonDown"
-                  BeginningEdit="ExcelGrid_BeginningEdit"
-                 
+                  PreviewMouseLeftButtonDown="ExcelGrid_MouseLeftButtonDown"
+                  BeginningEdit="ExcelGrid_BeginningEdit"      
                   CurrentCellChanged="ExcelGrid_CurrentCellChanged"
+                  SelectionUnit="CellOrRowHeader"
+                  RowHeaderWidth="15"
+                  RowHeight="25"
+                  RowHeaderStyle="{StaticResource RowHeaderStyle}"
+                  RowStyle="{StaticResource Rows}"
+                  CellStyle="{StaticResource Cells}"
                   >
+           
         </DataGrid>
         <StackPanel Grid.Column="0" Grid.Row="0" Orientation="Horizontal">
             <Button Margin="10" Style="{DynamicResource ButtonStyles}" Width="30" Height="30" HorizontalAlignment="Left" Content="+" Command="{Binding DialogOpen}" >
@@ -51,14 +61,23 @@
             </Button>
         </StackPanel>
         <StackPanel Grid.Column="2" Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Right">
-            <ComboBox x:Name="ThemesComboBox" SelectionChanged="ThemesComboBox_SelectionChanged">
-              
+            <ComboBox x:Name="ThemesComboBox" SelectionChanged="ThemesComboBox_SelectionChanged"/>
+            <ComboBox>
+                <ComboBoxItem> Graph1</ComboBoxItem>
             </ComboBox>
+
         </StackPanel>
-        <ScrollViewer Grid.Row="1" Grid.Column="2">
+        <WrapPanel Grid.Row="1" Grid.Column="2">
+            <Grid>
+                <oxy:PlotView  Model="{Binding PlotModelGraphs}"/>
+
+
+
+            </Grid>
+        </WrapPanel>
+        <ScrollViewer Grid.Row="2" Grid.Column="2">
             <StackPanel >
                 <ItemsControl ItemsSource="{Binding Rows}">
-
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <Border Margin="10" x:Name="bord" Style="{DynamicResource BorderStyles}"  CornerRadius="20" ClipToBounds="True" >
