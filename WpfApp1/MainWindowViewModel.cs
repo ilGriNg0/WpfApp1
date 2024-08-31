@@ -75,12 +75,13 @@ namespace WpfApp1
             }
         }
 
-        private PlotModel _plotModelGraphs;
+        
 
-        public PlotModel PlotModelGraphs
+        private GraphModel _graphsModel;
+        public GraphModel GraphsModel
         {
-            get { return _plotModelGraphs; }
-            set { _plotModelGraphs = value; OnPropertyChanged("PlotModel"); }
+            get { return _graphsModel; }    
+            set { _graphsModel = value; OnPropertyChanged("GraphsModel"); }
         }
         private ObservableCollection<Data> _rows;
 

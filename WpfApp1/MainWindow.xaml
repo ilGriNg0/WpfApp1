@@ -67,14 +67,9 @@
             </ComboBox>
 
         </StackPanel>
-        <WrapPanel Grid.Row="1" Grid.Column="2">
-            <Grid>
-                <oxy:PlotView  Model="{Binding PlotModelGraphs}"/>
-
-
-
-            </Grid>
-        </WrapPanel>
+        <ContentControl Grid.Row="1" Grid.Column="2" Content="{Binding GraphsModel }">
+           
+        </ContentControl>
         <ScrollViewer Grid.Row="2" Grid.Column="2">
             <StackPanel >
                 <ItemsControl ItemsSource="{Binding Rows}">

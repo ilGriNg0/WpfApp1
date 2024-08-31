@@ -28,6 +28,27 @@ namespace WpfApp1.Models
             }
         }
 
+        private static GraphModel _instance;
+
+        public static GraphModel Instance
+        {
+           get
+            { 
+                if (_instance == null)
+                {
+                    _instance = new GraphModel();    
+                }
+                return _instance;
+            }
+        }
+
+        private PlotModel _plotModelGraphs;
+
+        public PlotModel PlotModelGraphs
+        {
+            get { return _plotModelGraphs; }
+            set { _plotModelGraphs = value; OnPropertyChanged("PlotModelGraphs"); }
+        }
         public void ParamsGraphs()
         {
             //Points ??= new List<DataPoint> { new DataPoint() };
@@ -38,8 +59,9 @@ namespace WpfApp1.Models
         {
             Points_data ??= new LineSeries();
             Points_data.Points.Add(point);
-            MainWindowViewModel.Instance.PlotModelGraphs ??= new PlotModel();
-            MainWindowViewModel.Instance.PlotModelGraphs.Series.Add(Points_data);
+            PlotModelGraphs ??= new PlotModel();
+            PlotModelGraphs.Title = "ssss";
+            PlotModelGraphs.Series.Add(Points_data);
             return Points_data;
         }
         public void OnPropertyChanged([CallerMemberName] string prop = "")
