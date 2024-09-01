@@ -67,9 +67,10 @@
             </ComboBox>
 
         </StackPanel>
-        <ContentControl Grid.Row="1" Grid.Column="2" Content="{Binding GraphsModel }">
+        <!--<ContentControl Grid.Row="1" Grid.Column="2" Content="{Binding GraphsModel }">
            
-        </ContentControl>
+        </ContentControl>-->
+        <local:GraphControl Grid.Row="1" Grid.Column="2" DataContext="{Binding }" />
         <ScrollViewer Grid.Row="2" Grid.Column="2">
             <StackPanel >
                 <ItemsControl ItemsSource="{Binding Rows}">
@@ -85,8 +86,8 @@
                                             <Style TargetType="Border" BasedOn="{StaticResource Btn}"/>
                                         </Button.Resources>
                                     </Button>
-                                    <TextBlock Text="{Binding HeaderRow}" TextWrapping="Wrap" Margin="10"/>
-                                    <TextBlock Text="{Binding SelectRow, NotifyOnTargetUpdated=True}" TextWrapping="Wrap" Margin="10"></TextBlock>
+                                    <TextBlock Text="{Binding HeaderRow}" Style="{DynamicResource TextBlockStyles}" TextWrapping="Wrap" Margin="10"/>
+                                    <TextBlock Text="{Binding SelectRow, NotifyOnTargetUpdated=True}" Style="{DynamicResource TextBlockStyles}" TextWrapping="Wrap" Margin="10"></TextBlock>
                                 </StackPanel>
                             </Border>
                         </DataTemplate>

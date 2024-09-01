@@ -10,6 +10,8 @@
       Title="GraphView">
 
     <Grid>
-        <oxy:PlotView   Model="{Binding PlotModelGraphs}"/>
+       <!--
+        <oxy:PlotView Model="{Binding PlotModelGraphs}"/>
+        --> 
     </Grid>
 </Page>

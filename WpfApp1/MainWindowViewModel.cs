@@ -75,14 +75,21 @@ namespace WpfApp1
             }
         }
 
-        
+        private PlotModel _plotModelGraphs;
 
-        private GraphModel _graphsModel;
-        public GraphModel GraphsModel
+        public PlotModel PlotModelGraphs
+        {
+            get { return _plotModelGraphs; }
+            set { _plotModelGraphs = value; OnPropertyChanged("PlotModelGraphs"); }
+        }
+
+        private object _graphsModel;
+        public object GraphsModel
         {
             get { return _graphsModel; }    
             set { _graphsModel = value; OnPropertyChanged("GraphsModel"); }
         }
+
         private ObservableCollection<Data> _rows;
 
         public ObservableCollection<Data> Rows
@@ -103,6 +110,7 @@ namespace WpfApp1
             this.writeExcel = writeExcel;
             this.state = state;
             Machine = state.SelectState(0);
+            GraphsModel = new GraphModel();
         }
 
         private static MainWindowViewModel? _instance;

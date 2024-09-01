@@ -7,7 +7,7 @@
         <Setter Property="Background" Value="#ffffff"></Setter>
     </Style>
     <Style x:Key="TextBlockStyles" TargetType="TextBlock">
-        <Setter Property="Background" Value="Black"></Setter>
+        <Setter Property="Foreground" Value="Black"></Setter>
     </Style>
     <Style x:Key="BorderStyles" TargetType="Border">
         <Setter Property="Background" Value="#cafad8"></Setter>

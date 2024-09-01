@@ -25,7 +25,7 @@ namespace WpfApp1
         {
             InitializeComponent();
             DataContext = MainWindowViewModel.Instance ;
-            List<string> styles = new List<string> { "DinoThemes", "TangerineTheme" };
+            List<string> styles = new List<string> { "DinoThemes", "TangerineTheme", "DraculaTheme" };
             ThemesComboBox.SelectionChanged += ThemesComboBox_SelectionChanged;
             ThemesComboBox.ItemsSource = styles;
             ThemesComboBox.SelectedItem = "DinoThemes";
