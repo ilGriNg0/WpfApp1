@@ -128,9 +128,6 @@ namespace WpfApp1
                 }
 
             });
-            
-           
-
         }
     }
 }

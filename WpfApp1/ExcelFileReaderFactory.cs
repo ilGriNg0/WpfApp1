@@ -16,7 +16,6 @@ namespace WpfApp1
             switch (Extension)
             {
                 case ".csv":
-
                     return new LoadDataCsv();
                 case ".xls":
                 case ".xlsx":

@@ -110,7 +110,5 @@ namespace WpfApp1
 
             });
         }
-
-
     }
 }
