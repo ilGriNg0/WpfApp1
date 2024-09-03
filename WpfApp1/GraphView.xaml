@@ -9,9 +9,14 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="GraphView">
 
-    <Grid>
-       <!--
-        <oxy:PlotView Model="{Binding PlotModelGraphs}"/>
-        --> 
+    <Grid Background="BlueViolet" >
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+       
+        <oxy:PlotView Grid.Column="0"  Model="{Binding }"/>
+         
     </Grid>
 </Page>

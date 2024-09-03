@@ -24,7 +24,7 @@ namespace WpfApp1
         public GraphView()
         {
             InitializeComponent();
-            DataContext = GraphModel.Instance;
+            DataContext = new GraphModel();
         }
     }
 }

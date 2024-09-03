@@ -147,9 +147,5 @@ namespace WpfApp1
             }
             return FindVisualChild<T>(dependencyObject1);
         }
-        private void ExcelGrid_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
-        {
-           
-        }
     }
 }

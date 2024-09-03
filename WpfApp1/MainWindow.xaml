@@ -23,8 +23,7 @@
         </GridSplitter>
         <DataGrid Grid.Column="0" Grid.Row="1" Grid.RowSpan="2" x:Name="ExcelGrid"
                   AutoGenerateColumns="True"
-                  ItemsSource="{Binding Table}"
-                  SelectedCellsChanged="ExcelGrid_SelectedCellsChanged"
+                  ItemsSource="{Binding Table}"                
                   MouseRightButtonDown="ExcelGrid_MouseRightButtonDown"
                   PreviewMouseLeftButtonDown="ExcelGrid_MouseLeftButtonDown"
                   BeginningEdit="ExcelGrid_BeginningEdit"      
@@ -67,10 +66,10 @@
             </ComboBox>
 
         </StackPanel>
-        <!--<ContentControl Grid.Row="1" Grid.Column="2" Content="{Binding GraphsModel }">
-           
-        </ContentControl>-->
-        <local:GraphControl Grid.Row="1" Grid.Column="2" DataContext="{Binding }" />
+        <ContentControl Grid.Row="1" Grid.Column="2" Content="{Binding PlotModelGraphs }">
+
+        </ContentControl>
+        <!--<local:GraphControl Grid.Row="1" Grid.Column="2" DataContext="{Binding }" />-->
         <ScrollViewer Grid.Row="2" Grid.Column="2">
             <StackPanel >
                 <ItemsControl ItemsSource="{Binding Rows}">

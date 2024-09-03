@@ -61,7 +61,7 @@ namespace WpfApp1.Models
             Points_data.Points.Add(point);
             MainWindowViewModel.Instance.PlotModelGraphs ??= new PlotModel();
             MainWindowViewModel.Instance.PlotModelGraphs.Title = "ssss";
-            MainWindowViewModel.Instance.PlotModelGraphs.Series.Add(Points_data);
+            MainWindowViewModel.Instance.PlotModelGraphs.Series.Add(new FunctionSeries(Math.Cos, 0, 10, 0.1));
             return Points_data;
         }
         public void OnPropertyChanged([CallerMemberName] string prop = "")
