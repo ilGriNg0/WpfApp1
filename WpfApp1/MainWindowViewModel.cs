@@ -166,7 +166,7 @@ namespace WpfApp1
                         try
                         {
                             var reader = ExcelFileReaderFactory.GetLoadData(path);
-                            Table = await reader.lazyTable(Table, path, Table.Rows.Count, CountRows.GetRowsCount, 50);
+                            Table = await reader.lazyTable(Table, path, Table.Rows.Count+1, CountRows.GetRowsCount, 50);
                         }
                         catch (Exception)
                         {

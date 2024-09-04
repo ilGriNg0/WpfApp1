@@ -54,8 +54,9 @@ namespace WpfApp1
                                 List<string> list = new List<string>(); 
                                 for (int i = 0; i < reader.FieldCount; i++)
                                 {
-                                    dataTable.Columns.Add(reader.GetString(i));
-                                    list.Add(reader.GetString(i));   
+                                    var item = reader.GetValue(i).ToString();
+                                    dataTable.Columns.Add(item);
+                                    list.Add(item);   
                                 }
                                 string teste = string.Join(", ", list);
                                 MainWindowViewModel.Instance.RowsData = teste;
@@ -102,7 +103,7 @@ namespace WpfApp1
                         {
                             cnt++;
 
-                            if (current_row > cnt)
+                            if (current_row >= cnt)
                             {
                                 continue;
                             }
